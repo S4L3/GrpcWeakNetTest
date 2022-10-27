@@ -1,0 +1,132 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/Linear_Layout_Host"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Host:" />
+
+            <EditText
+                android:id="@+id/Edit_Text_Host"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/default_host" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Linear_Layout_Port"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Linear_Layout_Host"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Port:" />
+
+            <EditText
+                android:id="@+id/Edit_Text_Port"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="@string/default_port" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Linear_Layout_Channel_Type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Linear_Layout_Port"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="ClientChannelType:" />
+
+            <Spinner
+                android:id="@+id/Spinner_Channel_Type"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:entries="@array/ChannelType"
+                android:visibility="visible" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/Button_Start_Client"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/Button_Stop_Client"
+            android:orientation="horizontal"
+            android:text="Start Client" />
+        <Button
+            android:id="@+id/Button_Stop_Client"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:text="Stop Client" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/black" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/Linear_Layout_Server_Port"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Port:" />
+
+            <EditText
+                android:id="@+id/Edit_Text_Server_Port"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="@string/default_port" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/Button_Start_Server"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_above="@id/Button_Stop_Server"
+            android:text="Start Server" />
+        <Button
+            android:id="@+id/Button_Stop_Server"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:text="Stop Server" />
+    </RelativeLayout>
+</LinearLayout>
