@@ -2,8 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.protobuf'
 
 ext {
-    grpcVersion = '1.16.1'
-    protobufVersion = '3.9.0'
+    grpcVersion = '1.50.2'
+    protobufVersion = '3.21.9'
 }
 
 android {
@@ -37,14 +37,14 @@ android {
     }
 }
 
-
 protobuf {
     protoc { artifact = "com.google.protobuf:protoc:${protobufVersion}" }
     plugins {
-        javalite { artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0" }
+        //javalite { artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0" }
         grpc { artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}" // CURRENT_GRPC_VERSION
         }
     }
+    /*
     generateProtoTasks {
         all().each { task ->
             task.plugins {
@@ -55,19 +55,35 @@ protobuf {
             }
         }
     }
+*/
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java { option 'lite' }
+            }
+            task.plugins {
+                grpc { // Options added to --grpc_out
+                    option 'lite' }
+            }
+        }
+    }
 }
 
 
 dependencies {
+    //implementation "io.grpc:grpc-netty-shaded:${grpcVersion}" // CURRENT_GRPC_VERSION
     implementation "io.grpc:grpc-netty:${grpcVersion}" // CURRENT_GRPC_VERSION
     implementation "io.grpc:grpc-okhttp:${grpcVersion}" // CURRENT_GRPC_VERSION
     implementation "io.grpc:grpc-protobuf-lite:${grpcVersion}" // CURRENT_GRPC_VERSION
     implementation "io.grpc:grpc-stub:${grpcVersion}" // CURRENT_GRPC_VERSION
     implementation 'javax.annotation:javax.annotation-api:1.3.2'
     //implementation "com.google.android.gms:play-services-cronet:17.0.1"
+    //implementation 'io.grpc:grpc-cronet:1.50.2'
+    //implementation 'com.google.android.gms:play-services-cronet:16.0.0'
     //implementation "io.grpc:grpc-core:${grpcVersion}" // CURRENT_GRPC_VERSION
     implementation "org.chromium.net:cronet-embedded:66.3359.158"
-    implementation project(path: ':grpc-grpc-java-refs_heads_master-cronet')
+    //implementation "org.chromium.net:cronet-embedded:106.5249.126"
+    implementation project(path: ':cronet')
 
     implementation 'org.syslog4j:syslog4j:0.9.30'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-rc1'

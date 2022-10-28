@@ -32,17 +32,20 @@ public class MainActivity extends Activity {
         startClientButton.setOnClickListener((View v)->{startClient(true);});
 
         Button stopClientButton = findViewById(R.id.Button_Stop_Client);
-        startClientButton.setOnClickListener((View v)->{startClient(false);});
+        stopClientButton.setOnClickListener((View v)->{startClient(false);});
 
         Button startServerButton = findViewById(R.id.Button_Start_Server);
         startServerButton.setOnClickListener((View v)->{startServer(true);});
 
         Button stopServerButton = findViewById(R.id.Button_Stop_Server);
-        startClientButton.setOnClickListener((View v)->{startServer(false);});
+        stopServerButton.setOnClickListener((View v)->{startServer(false);});
 
         mClientHost = findViewById(R.id.Edit_Text_Host);
         mClientPort = findViewById(R.id.Edit_Text_Port);
         mClientSpinner = findViewById(R.id.Spinner_Channel_Type);
+
+        String[] types = getResources().getStringArray(R.array.ChannelType);
+        mClientSpinner.setSelection(types.length - 1);
 
         mServerPort = findViewById(R.id.Edit_Text_Server_Port);
     }

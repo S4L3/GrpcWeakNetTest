@@ -1,1 +1,1 @@
-include ':app','grpc-grpc-java-refs_heads_master-cronet'
+include ':app',':cronet'

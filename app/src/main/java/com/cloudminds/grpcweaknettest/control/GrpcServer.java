@@ -16,18 +16,26 @@ public class GrpcServer {
     private int mPort;
 
     public GrpcServer(Context context, int port){
-
+        mContext = context;
+        mPort = port;
     }
 
-    public void start(){
+    public void start() {
         if (mStarted){
             return;
         }
-        Log.d(TAG,"start");
+        Log.d(TAG,"start;port:" + mPort);
         mStarted = true;
-        sServer = NettyServerBuilder.forPort(50051)
+
+        sServer = NettyServerBuilder.forPort(mPort)
                 .addService(new WeakNetTestGrpcService())
+                //.sslContext(null)
                 .build();
+        try {
+            sServer.start();
+        } catch (Exception e) {
+            Log.d(TAG,"start;error:" + e.getMessage());
+        }
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {

@@ -3,8 +3,9 @@
     <string-array name="ChannelType">
         <item>OkHttp</item>
         <item>Netty</item>
-        <item>CroNet</item>
+        <item>Cronet</item>
     </string-array>
-    <string name="default_host">10.13.72.143</string>
+<!--    <string name="default_host">10.13.72.143</string>-->
+    <string name="default_host">10.11.102.100</string>
     <string name="default_port">50051</string>
 </resources>

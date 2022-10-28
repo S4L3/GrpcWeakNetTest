@@ -31,7 +31,7 @@ public class TimeStatisticsUtils {
         bean.Id = id;
         bean.SendTime = sendTime;
         mMap.put(new Long(id), bean);
-        Log.d(TAG, "setReceiveTime;id" + id + ";sendTime" + sendTime);
+        Log.d(TAG, "setReceiveTime;id:" + id + ";sendTime:" + sendTime);
     }
 
     public void setReceiveTime(long id, long receiveTime) {

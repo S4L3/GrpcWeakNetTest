@@ -8,6 +8,7 @@ import com.cloudminds.grpcweaknettest.utils.TimeStatisticsUtils;
 import java.util.concurrent.TimeUnit;
 
 import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 import io.grpc.cronet.CronetChannelBuilder;
 import io.grpc.netty.NettyChannelBuilder;
 import io.grpc.okhttp.OkHttpChannelBuilder;
@@ -106,7 +107,7 @@ public class GrpcClient {
     }
 
     public synchronized void stop() {
-        if (mStarted) {
+        if (!mStarted) {
             return;
         }
         mStarted = false;
@@ -146,7 +147,10 @@ public class GrpcClient {
                         .usePlaintext()
                         .build();
             } else if (CHANNEL_TYPE_CRONET == mType) {
-                sEngine = new ExperimentalCronetEngine.Builder(context /* Android Context */).build();
+                sEngine = new ExperimentalCronetEngine.Builder(context /* Android Context */).
+                        enableHttp2(false).
+                        enableQuic(true).
+                        build();
                 sChannel = CronetChannelBuilder.forAddress(mHost, 50051, sEngine)
                         //.keepAliveTime(1, TimeUnit.MINUTES)
                         //.keepAliveTimeout(5, TimeUnit.SECONDS)
