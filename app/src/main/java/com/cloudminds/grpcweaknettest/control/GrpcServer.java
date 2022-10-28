@@ -35,6 +35,7 @@ public class GrpcServer {
             sServer.start();
         } catch (Exception e) {
             Log.d(TAG,"start;error:" + e.getMessage());
+            Log.d(TAG,"start;error:" + Log.getStackTraceString(e));
         }
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
