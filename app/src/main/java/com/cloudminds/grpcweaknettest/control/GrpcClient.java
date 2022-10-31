@@ -151,7 +151,7 @@ public class GrpcClient {
                         enableHttp2(false).
                         enableQuic(true).
                         build();
-                sChannel = CronetChannelBuilder.forAddress(mHost, 50051, sEngine)
+                sChannel = CronetChannelBuilder.forAddress(mHost, mPort, sEngine)
                         //.keepAliveTime(1, TimeUnit.MINUTES)
                         //.keepAliveTimeout(5, TimeUnit.SECONDS)
                         //.keepAliveWithoutCalls(true)

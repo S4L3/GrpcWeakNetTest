@@ -6,6 +6,7 @@
         <item>Cronet</item>
     </string-array>
 <!--    <string name="default_host">10.13.72.143</string>-->
-    <string name="default_host">10.11.102.100</string>
+<!-- <string name="default_host">10.11.102.100</string> -->
+    <string name="default_host">10.11.33.78</string>
     <string name="default_port">50051</string>
 </resources>
