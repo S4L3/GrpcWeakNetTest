@@ -3,8 +3,12 @@ package com.cloudminds.grpcweaknettest.control;
 import android.content.Context;
 import android.util.Log;
 
+import com.cloudminds.grpcweaknettest.utils.CertUtils;
 import com.cloudminds.grpcweaknettest.utils.TimeStatisticsUtils;
 
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import io.grpc.ManagedChannel;
@@ -15,7 +19,11 @@ import io.grpc.okhttp.OkHttpChannelBuilder;
 import io.grpc.stub.StreamObserver;
 import weaknettest.WeakNetTestGrpc;
 import weaknettest.Weaknettest;
+
+import org.chromium.net.CronetEngine;
 import org.chromium.net.ExperimentalCronetEngine;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class GrpcClient {
     private static final String TAG = "GrpcClient";
@@ -147,10 +155,34 @@ public class GrpcClient {
                         .usePlaintext()
                         .build();
             } else if (CHANNEL_TYPE_CRONET == mType) {
-                sEngine = new ExperimentalCronetEngine.Builder(context /* Android Context */).
-                        enableHttp2(false).
-                        enableQuic(true).
-                        build();
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("InsecureSkipVerify", true);
+                } catch (Exception e) {
+                    Log.e(TAG, "CHANNEL_TYPE_CRONET;error:" + e.getMessage());
+                }
+
+                Set<byte[]> pinsSha256 = CertUtils.getPinsSha256();
+                int index = 0;
+                for (byte[] data : pinsSha256) {
+                    for (int in_index = 0; in_index < data.length; in_index++) {
+                        Log.i(TAG, "pinsSha256[" + index + "]-[" + in_index + "]:" + data[in_index]);
+                    }
+                    index ++;
+                }
+
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.SECOND, Integer.MAX_VALUE);
+                sEngine = new ExperimentalCronetEngine.Builder(context /* Android Context */)
+                        .enableHttpCache(CronetEngine.Builder.HTTP_CACHE_IN_MEMORY,5*1024 * 1024)
+                        .enableHttp2(true)
+                        .enableQuic(true)
+                        .enableSdch(true)
+                        .addPublicKeyPins("www.test1111.com", pinsSha256, false, cal.getTime())
+                        .addQuicHint("10.11.33.78", 50051, 50051)
+                        .addQuicHint(mHost, mPort, mPort)
+                        .build();
+
                 sChannel = CronetChannelBuilder.forAddress(mHost, mPort, sEngine)
                         //.keepAliveTime(1, TimeUnit.MINUTES)
                         //.keepAliveTimeout(5, TimeUnit.SECONDS)

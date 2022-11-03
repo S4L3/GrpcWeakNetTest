@@ -29,7 +29,7 @@ public class GrpcServer {
 
         sServer = NettyServerBuilder.forPort(mPort)
                 .addService(new WeakNetTestGrpcService())
-                .sslContext(null)
+                //.sslContext(null)
                 .build();
         try {
             sServer.start();

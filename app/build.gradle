@@ -13,7 +13,7 @@ android {
         applicationId "com.cloudminds.grpcweaknettest"
         minSdkVersion 19
         //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 29
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -86,7 +86,7 @@ dependencies {
 
     implementation "io.grpc:grpc-core:${grpcVersion}" // CURRENT_GRPC_VERSION
     implementation "io.grpc:grpc-cronet:${grpcVersion}" // CURRENT_GRPC_VERSION
-    implementation 'com.google.android.gms:play-services-cronet:16.0.0'
+    implementation 'com.google.android.gms:play-services-cronet:18.0.1'
 
     //implementation "com.google.android.gms:play-services-cronet:17.0.1"
     //implementation 'com.google.android.gms:play-services-cronet:16.0.0'
